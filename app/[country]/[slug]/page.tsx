@@ -15,7 +15,14 @@ export const instant = false;
 
 export async function generateMetadata({ params }: PageProps<"/[country]/[slug]">): Promise<Metadata> {
   const d = getFullDestination((await params).slug);
-  return d ? { title: d.name, description: d.description, openGraph: { images: [d.image.src] } } : {};
+  if (!d) return {};
+  const description = d.description.split(". ")[0] + ".";
+  return {
+    title: d.name,
+    description,
+    alternates: { canonical: `/${d.country}/${d.slug}` },
+    openGraph: { title: `${d.name} · Travelo`, description, images: [{ url: d.image.src, alt: d.image.alt }] },
+  };
 }
 
 export default async function DestinationPage({ params }: PageProps<"/[country]/[slug]">) {

@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Golos_Text, Spectral } from "next/font/google";
 import { CommandPalette } from "@/components/features/CommandPalette";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Providers } from "@/components/layout/Providers";
 import { Toaster } from "@/components/ui/Toast";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const spectral = Spectral({ variable: "--font-spectral", subsets: ["latin"], weight: ["400"] });
@@ -13,7 +14,13 @@ const golos = Golos_Text({ variable: "--font-golos", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: { default: "Travelo · India & Germany", template: "%s · Travelo" },
   description: "Discover cities, heritage and landscapes across India and Germany, with guides, videos, galleries and maps.",
+  metadataBase: new URL(SITE_URL),
+  applicationName: "Travelo",
+  openGraph: { type: "website", siteName: "Travelo", locale: "en_GB" },
+  twitter: { card: "summary_large_image" },
 };
+
+export const viewport: Viewport = { themeColor: "#1B2978" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
