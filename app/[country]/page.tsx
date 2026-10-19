@@ -7,6 +7,8 @@ import { byCountry, countries } from "@/content/destinations";
 import { CATEGORIES, isCountry } from "@/lib/data";
 
 export const generateStaticParams = () => [{ country: "india" }, { country: "germany" }];
+// Both countries are prerendered: let navigation wait for them.
+export const instant = false;
 
 export async function generateMetadata({ params }: PageProps<"/[country]">): Promise<Metadata> {
   const { country } = await params;

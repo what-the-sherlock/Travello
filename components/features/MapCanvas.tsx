@@ -10,6 +10,7 @@ import { useEffect, useRef } from "react";
 import Map, { Marker, NavigationControl, Popup, type MapRef } from "react-map-gl/maplibre";
 import type { Country, Destination } from "@/content/destinations";
 import { COUNTRY_VIEW, MAP_STYLE } from "@/lib/map";
+import { spring } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type NearbyPin = { name: string; distance: string; coordinates: [number, number]; of: string };
@@ -33,6 +34,7 @@ export default function MapCanvas({
 }) {
   const ref = useRef<MapRef>(null);
   const sel = destinations.find((d) => d.slug === selected);
+  const hov = destinations.find((d) => d.slug === hovered);
 
   // Fly between countries
   useEffect(() => {
@@ -63,44 +65,87 @@ export default function MapCanvas({
 
       {nearby.map((n) => (
         <Marker key={n.of + n.name} longitude={n.coordinates[0]} latitude={n.coordinates[1]} anchor="center">
-          <span title={`${n.name} (near ${n.of})`} className="block size-3 rounded-full border-2 border-white bg-navy shadow-sm" />
+          <span title={`${n.name} (near ${n.of})`} className="block size-2 rounded-full bg-navy/60 ring-1 ring-white" />
         </Marker>
       ))}
 
-      {destinations.map((d) => (
-        <Marker
-          key={d.slug}
-          longitude={d.coordinates[0]}
-          latitude={d.coordinates[1]}
+      {destinations.map((d) => {
+        const active = hovered === d.slug || selected === d.slug;
+        return (
+          <Marker
+            key={d.slug}
+            longitude={d.coordinates[0]}
+            latitude={d.coordinates[1]}
+            anchor="center"
+            style={{ zIndex: active ? 2 : 1 }}
+            onClick={(e) => {
+              e.originalEvent.stopPropagation();
+              setSelected(d.slug);
+            }}
+          >
+            {/* Small dot with a generous invisible hit area, so city labels stay readable */}
+            <button
+              type="button"
+              aria-label={d.name}
+              onMouseEnter={() => setHovered(d.slug)}
+              onMouseLeave={() => setHovered(null)}
+              onFocus={() => setHovered(d.slug)}
+              onBlur={() => setHovered(null)}
+              className="flex size-6 items-center justify-center"
+            >
+              <motion.span
+                animate={{ scale: active ? 1.6 : 1 }}
+                transition={spring.snappy}
+                className={cn(
+                  "block size-3 rounded-full shadow-sm ring-2 ring-white",
+                  selected === d.slug ? "bg-navy" : "bg-accent",
+                )}
+              />
+            </button>
+          </Marker>
+        );
+      })}
+
+      {/* Hover preview: photo, name and theme */}
+      {hov && hov.slug !== selected && (
+        <Popup
+          longitude={hov.coordinates[0]}
+          latitude={hov.coordinates[1]}
           anchor="bottom"
-          onClick={(e) => {
-            e.originalEvent.stopPropagation();
-            setSelected(d.slug);
-          }}
+          offset={14}
+          closeButton={false}
+          style={{ zIndex: 10 }}
+          focusAfterOpen={false}
+          closeOnClick={false}
+          className="pointer-events-none"
+          maxWidth="200px"
         >
-          <motion.button
-            type="button"
-            aria-label={d.name}
-            onMouseEnter={() => setHovered(d.slug)}
-            onMouseLeave={() => setHovered(null)}
-            animate={hovered === d.slug ? { y: [0, -10, 0] } : { y: 0 }}
-            style={{ rotate: 45 }}
-            transition={{ duration: 0.4 }}
-            className={cn(
-              "block size-6 rounded-full rounded-br-none border-2 border-white bg-accent shadow-lg",
-              selected === d.slug && "bg-navy",
-            )}
-          />
-        </Marker>
-      ))}
+          <div className="w-[180px] font-sans text-navy">
+            <span className="relative block aspect-[16/10] overflow-hidden rounded-sm bg-tint">
+              <Image
+                src={hov.image.thumb ?? hov.image.src}
+                unoptimized={hov.image.src.startsWith("http")}
+                alt=""
+                fill
+                sizes="180px"
+                className="object-cover"
+              />
+            </span>
+            <p className="mt-2 font-serif text-lg leading-tight tracking-[-0.045em]">{hov.name}</p>
+            <p className="text-xs text-navy/60">{hov.tag}</p>
+          </div>
+        </Popup>
+      )}
 
       {sel && (
         <Popup
           longitude={sel.coordinates[0]}
           latitude={sel.coordinates[1]}
           anchor="bottom"
-          offset={30}
+          offset={14}
           closeButton={false}
+          style={{ zIndex: 10 }}
+          focusAfterOpen={false}
           onClose={() => setSelected(null)}
           maxWidth="260px"
         >

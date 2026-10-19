@@ -17,14 +17,14 @@ const MapCanvas = dynamic(() => import("./MapCanvas"), {
 export type Layer = "destinations" | "nearby";
 export const LAYERS: { id: Layer; label: string; color: string }[] = [
   { id: "destinations", label: "Destinations", color: "bg-accent" },
-  { id: "nearby", label: "Nearby places", color: "bg-navy" },
+  { id: "nearby", label: "Nearby places", color: "bg-navy/60" },
 ];
 
 export function MapExplorer() {
   const focusSlug = useSearchParams().get("focus");
   const focused = focusSlug ? getDestination(focusSlug) : undefined;
   const [country, setCountry] = useState<Country>(focused?.country ?? "india");
-  const [layers, setLayers] = useState<Layer[]>(["destinations", "nearby"]);
+  const [layers, setLayers] = useState<Layer[]>(["destinations"]);
   const [hovered, setHovered] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(focused?.slug ?? null);
 

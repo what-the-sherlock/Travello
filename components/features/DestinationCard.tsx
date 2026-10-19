@@ -31,7 +31,7 @@ export function DestinationCard({ d }: { d: Destination }) {
       <div className="mt-4 flex items-baseline gap-3">
         <span aria-hidden className="size-1.5 shrink-0 translate-y-[-3px] rounded-full bg-accent" />
         <h3 className="text-h3 leading-none">{d.name}</h3>
-        <span className="text-[15px] text-navy/60">{d.region}</span>
+        {d.region !== "India" && d.region !== "Germany" && <span className="text-[15px] text-navy/60">{d.region}</span>}
       </div>
     </Link>
   );

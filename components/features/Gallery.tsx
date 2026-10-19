@@ -9,20 +9,21 @@ import { duration, ease, spring } from "@/lib/motion";
 // Wikimedia serves standard thumbnail widths; 960px is plenty for grid tiles.
 const small = (src: string) => src.replace("/1920px-", "/960px-");
 
-/** Masonry grid + lightbox (keys, swipe, Esc / swipe-down to close). */
+/** Even 4:3 grid + lightbox (keys, swipe, Esc / swipe-down to close). */
 export function Gallery({ images }: { images: GalleryImage[] }) {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
     <>
-      <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+      {/* 2 columns when that fills rows evenly (2 or 4 photos), otherwise 3 */}
+      <ul className={`grid gap-4 sm:grid-cols-2 ${images.length % 2 === 0 && images.length <= 4 ? "" : "lg:grid-cols-3"}`}>
         {images.map((img, i) => (
-          <li key={img.src} className="mb-4 break-inside-avoid">
+          <li key={img.src}>
             <button
               type="button"
               onClick={() => setOpen(i)}
               aria-label={`Open photo ${i + 1}: ${img.caption}`}
-              className="group block w-full overflow-hidden rounded-card bg-tint"
+              className="group block aspect-[4/3] w-full overflow-hidden rounded-card bg-tint"
             >
               <motion.img
                 layoutId={`photo-${i}`}
@@ -31,7 +32,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
                 width={img.width}
                 height={img.height}
                 loading="lazy"
-                className="h-auto w-full transition-transform duration-450 ease-out group-hover:scale-[1.03]"
+                className="size-full object-cover transition-transform duration-450 ease-out group-hover:scale-[1.03]"
               />
             </button>
           </li>

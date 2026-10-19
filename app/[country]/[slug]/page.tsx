@@ -38,7 +38,7 @@ export default async function DestinationPage({ params }: PageProps<"/[country]/
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <p className="mr-2 flex items-center gap-1.5 text-white/85">
             <MapPin size={20} strokeWidth={1.5} aria-hidden />
-            {d.region}, {countryName(d.country)}
+            {d.region === countryName(d.country) ? d.region : `${d.region}, ${countryName(d.country)}`}
           </p>
           <HeartButton slug={d.slug} name={d.name} />
           <ShareButton title={d.name} />

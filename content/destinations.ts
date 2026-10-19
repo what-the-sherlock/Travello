@@ -212,7 +212,8 @@ const curatedSlugs = new Set(curated.map((d) => d.slug));
 
 export const destinations: Destination[] = [
   ...curated.map((d) => ({ ...d, source: "curated" as const })),
-  ...(generated as Omit<Destination, "source">[])
+  // JSON types coordinates as number[]; the generator always writes [lng, lat]
+  ...(generated as unknown as Omit<Destination, "source">[])
     .filter((d) => !curatedSlugs.has(d.slug) && !ALIASES.has(d.slug))
     .map((d) => ({ ...d, source: "generated" as const })),
 ];
