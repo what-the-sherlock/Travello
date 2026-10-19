@@ -48,8 +48,14 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Let sticky bars (e.g. the destination sub-nav) sit just below the header while it's visible
+  const headerVisible = !hidden || menuOpen;
+  useEffect(() => {
+    document.documentElement.style.setProperty("--header-offset", headerVisible ? "var(--header-h)" : "0px");
+  }, [headerVisible]);
+
   // Transparent only over the home hero
-  const solid = scrolled || pathname !== "/";
+  const solid = scrolled || pathname !== "/" || menuOpen;
 
   return (
     <>
@@ -57,7 +63,9 @@ export function Header() {
         animate={{ y: hidden && !menuOpen ? "-100%" : 0 }}
         transition={{ duration: duration.base, ease: ease.out }}
         className={cn(
-          "fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-240",
+          "fixed inset-x-0 top-0 border-b transition-[background-color,border-color,box-shadow] duration-240",
+          // Above the mobile menu sheet while it is open, so the close button stays reachable
+          menuOpen ? "z-50" : "z-40",
           solid ? "border-line bg-surface shadow-sm" : "border-transparent bg-transparent",
         )}
       >
@@ -117,9 +125,12 @@ export function Header() {
                 )}
               </AnimatePresence>
             </Link>
-            <ButtonLink href="/explore" variant={solid ? "dark" : "light"} className="ml-2 hidden lg:inline-flex">
-              Start exploring
-            </ButtonLink>
+            {/* Wrapper controls visibility: ButtonLink's own inline-flex would override `hidden` */}
+            <span className="ml-2 hidden lg:block">
+              <ButtonLink href="/explore" variant={solid ? "dark" : "light"}>
+                Start exploring
+              </ButtonLink>
+            </span>
             <button
               type="button"
               aria-label={menuOpen ? "Close menu" : "Open menu"}

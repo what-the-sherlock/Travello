@@ -56,8 +56,8 @@ export function DestinationTabs(props: Props) {
   };
 
   return (
-    <div className="mt-12">
-      <div role="tablist" aria-label={`${props.name} guide`} onKeyDown={onKeyDown} className="flex gap-1 overflow-x-auto border-b border-line [scrollbar-width:none]">
+    <div className="mt-10 sm:mt-12">
+      <div role="tablist" aria-label={`${props.name} guide`} onKeyDown={onKeyDown} className="flex border-b border-line sm:gap-1">
         {tabs.map((t, i) => (
           <button
             key={t.id}
@@ -68,14 +68,14 @@ export function DestinationTabs(props: Props) {
             tabIndex={tab === i ? 0 : -1}
             onClick={() => select(i)}
             className={cn(
-              "relative flex min-h-14 items-center gap-2 px-4 whitespace-nowrap transition-colors",
+              "relative flex min-h-16 flex-1 flex-col items-center justify-center gap-1 px-1 text-center text-xs leading-tight transition-colors sm:min-h-14 sm:flex-none sm:flex-row sm:gap-2 sm:px-4 sm:text-base sm:whitespace-nowrap",
               tab === i ? "text-navy" : "text-navy/60 hover:text-navy",
             )}
           >
             <t.icon size={20} strokeWidth={1.5} aria-hidden />
             {t.label}
             {tab === i && (
-              <motion.span layoutId="tab-underline" transition={spring.snappy} className="absolute inset-x-4 -bottom-px h-0.5 bg-navy" />
+              <motion.span layoutId="tab-underline" transition={spring.snappy} className="absolute inset-x-2 -bottom-px h-0.5 bg-navy sm:inset-x-4" />
             )}
           </button>
         ))}
@@ -91,7 +91,7 @@ export function DestinationTabs(props: Props) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -8 * dir }}
           transition={{ duration: duration.base, ease: ease.out }}
-          className="pt-10"
+          className="pt-8 sm:pt-10"
         >
           {tabs[tab].id === "attractions" && <Attractions items={props.attractions!} />}
           {tabs[tab].id === "best-time" && (

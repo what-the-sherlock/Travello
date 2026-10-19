@@ -35,8 +35,8 @@ export function Hero() {
         <div className="max-w-150">
           <WordReveal as="h1" onMount text="Discover the Beauty of India & Germany" className="text-display text-white" />
           <motion.p {...appear(0.6)} className="mt-4.5 max-w-122.5 text-lead text-white/85">
-            Explore palaces and ghats, castles and forests, with honest guides, video walkthroughs and maps for
-            fourteen of the two countries&rsquo; most loved places.
+            Explore palaces and ghats, castles and forests, with guides, photo galleries and maps for over a
+            hundred of the two countries&rsquo; best-loved places.
           </motion.p>
           <motion.div {...appear(0.75)} className="mt-9">
             <ButtonLink href="/explore">Start exploring</ButtonLink>

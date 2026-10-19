@@ -171,11 +171,13 @@ export function CommandPalette() {
                         type="button"
                         onMouseEnter={() => setActive(i)}
                         onClick={() => go(d.slug)}
-                        className={cn("flex min-h-12 w-full items-center gap-3 rounded-sm px-2 text-left", i === active && "bg-mist")}
+                        className={cn("flex min-h-12 w-full items-center gap-3 rounded-sm px-2 py-1.5 text-left", i === active && "bg-mist")}
                       >
-                        <MapPin size={16} strokeWidth={1.5} aria-hidden />
-                        <span className="font-serif text-lg tracking-[-0.03em]">{d.name}</span>
-                        <span className="text-sm text-navy/50">{d.tag}</span>
+                        <MapPin size={16} strokeWidth={1.5} aria-hidden className="shrink-0" />
+                        <span className="min-w-0">
+                          <span className="block truncate font-serif text-lg leading-tight tracking-[-0.03em]">{d.name}</span>
+                          <span className="block text-sm text-navy/50">{d.tag}</span>
+                        </span>
                       </button>
                     );
                   })}

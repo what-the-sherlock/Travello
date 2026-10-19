@@ -62,7 +62,7 @@ export default async function DestinationPage({ params }: PageProps<"/[country]/
 
       <section className="section-y bg-mist">
         <div className="container-page">
-          <p className="max-w-[760px] font-serif text-[clamp(1.4rem,1.2rem+0.8vw,1.9rem)] leading-snug tracking-[-0.03em]">
+          <p className="max-w-[760px] font-serif text-[clamp(1.2rem,1rem+1vw,1.9rem)] leading-snug tracking-[-0.03em]">
             {d.description}
           </p>
           {d.wikipedia && (

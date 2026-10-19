@@ -27,15 +27,15 @@ export function About() {
           </motion.div>
         </div>
 
-        <ul className="flex w-full flex-wrap justify-center gap-4">
+        <ul className="grid w-full gap-4 sm:grid-cols-3 lg:max-w-[880px]">
           <ValueCard i={0} icon={<DropPin />} title="Explore New Places">
-            Fourteen hand-picked destinations, from Mughal tombs to Bavarian castles, each with what to see and when to go.
+            Over a hundred destinations, from Mughal tombs and tiger reserves to Bavarian castles and Alpine lakes.
           </ValueCard>
           <ValueCard i={1} title="Learn Local Culture" image={countries.india.image} icon={<WavingPerson />}>
             Festivals, food and the stories behind each place, so you arrive knowing what makes it matter.
           </ValueCard>
           <ValueCard i={2} icon={<NudgePlay />} title="Watch Video Guides">
-            Short video walkthroughs with chapters, so you can jump straight to the sights you care about.
+            Short video walkthroughs from travellers on the ground, so you can see a place before you go.
           </ValueCard>
         </ul>
       </div>
@@ -60,7 +60,7 @@ function ValueCard({
   return (
     <motion.li
       {...reveal(staggerDelay(i))}
-      className={`group relative flex h-[340px] w-full max-w-[280px] flex-col justify-end gap-10 overflow-hidden rounded-card p-[26px] shadow-sm ${
+      className={`group relative flex min-h-[220px] w-full flex-col justify-end gap-6 overflow-hidden rounded-card p-6 shadow-sm sm:min-h-[340px] sm:gap-10 sm:p-5 lg:p-[26px] ${
         dark ? "text-white" : "bg-white text-navy"
       }`}
     >

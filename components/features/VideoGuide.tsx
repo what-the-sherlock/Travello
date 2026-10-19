@@ -77,7 +77,7 @@ export function VideoGuide({ videos }: { videos: Video[] }) {
                     {x.duration}
                   </span>
                 </span>
-                <span className="line-clamp-3 text-[15px] leading-snug">{x.title}</span>
+                <span className="line-clamp-3 self-start text-[15px] leading-snug">{x.title}</span>
               </button>
             </li>
           ))}

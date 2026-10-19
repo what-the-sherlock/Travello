@@ -16,14 +16,14 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
   return (
     <>
       {/* 2 columns when that fills rows evenly (2 or 4 photos), otherwise 3 */}
-      <ul className={`grid gap-4 sm:grid-cols-2 ${images.length % 2 === 0 && images.length <= 4 ? "" : "lg:grid-cols-3"}`}>
+      <ul className={`grid grid-cols-2 gap-2 sm:gap-4 ${images.length % 2 === 0 && images.length <= 4 ? "" : "lg:grid-cols-3"}`}>
         {images.map((img, i) => (
           <li key={img.src}>
             <button
               type="button"
               onClick={() => setOpen(i)}
               aria-label={`Open photo ${i + 1}: ${img.caption}`}
-              className="group block aspect-[4/3] w-full overflow-hidden rounded-card bg-tint"
+              className="group block aspect-[4/3] w-full overflow-hidden rounded-sm bg-tint sm:rounded-card"
             >
               <motion.img
                 layoutId={`photo-${i}`}

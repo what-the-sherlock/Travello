@@ -23,7 +23,7 @@ export function Chip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "relative min-h-11 rounded-full px-4 text-sm font-medium transition-colors duration-150 active:scale-[0.97]",
+        "relative min-h-11 shrink-0 rounded-full px-4 text-sm font-medium transition-colors duration-150 active:scale-[0.97]",
         active ? "text-white" : "border border-line bg-surface text-navy/75 hover:text-navy",
       )}
     >

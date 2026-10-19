@@ -24,6 +24,7 @@ export default function MiniMap({ pins, focus }: { pins: Pin[]; focus: [number, 
       mapStyle={MAP_STYLE}
       style={{ width: "100%", height: "100%" }}
       cooperativeGestures
+      attributionControl={{ compact: true }}
     >
       <NavigationControl position="top-right" showCompass={false} />
       {pins.map((p) => (

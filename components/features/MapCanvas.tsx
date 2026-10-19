@@ -52,7 +52,13 @@ export default function MapCanvas({
     );
 
   return (
-    <Map ref={ref} initialViewState={COUNTRY_VIEW[country]} mapStyle={MAP_STYLE} style={{ width: "100%", height: "100%" }}>
+    <Map
+      ref={ref}
+      initialViewState={COUNTRY_VIEW[country]}
+      mapStyle={MAP_STYLE}
+      style={{ width: "100%", height: "100%" }}
+      attributionControl={{ compact: true }}
+    >
       <NavigationControl position="top-right" showCompass={false} />
       <button
         type="button"
