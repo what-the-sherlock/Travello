@@ -1,0 +1,36 @@
+/* Travelo design tokens — see DESIGN.md */
+:root {
+  /* Color */
+  --navy: #1b2978;        /* primary: headings, body text, buttons on light */
+  --navy-deep: #0e1954;   /* hover / pressed */
+  --navy-night: #0a1345;  /* dark section backgrounds (Featured) */
+  --mist: #f5f9fc;        /* light section background (About) */
+  --tint: #edf4fa;        /* soft fills, chips */
+  --paper: #fafafa;       /* page background */
+  --surface: #ffffff;
+  --line: rgba(27, 41, 120, 0.12);
+  --grey: #999999;
+  --accent: #f46d2b;      /* orange: cursor arrow, small highlights only */
+
+  /* Elevation (Travelo's soft navy-tinted stacked shadows) */
+  --shadow-sm: 0 0.6px 0.6px -1.25px rgba(26, 40, 120, 0.06), 0 2.3px 2.3px -2.5px rgba(26, 40, 120, 0.05),
+    0 10px 10px -3.75px rgba(26, 40, 120, 0.02);
+  --shadow-lg: 0 0.6px 0.6px -1.25px rgba(26, 40, 120, 0.12), 0 2.3px 2.3px -2.5px rgba(26, 40, 120, 0.1),
+    0 20px 30px -6px rgba(26, 40, 120, 0.12);
+
+  /* Shape */
+  --radius-sm: 14px;
+  --radius-card: 24px;
+  --radius-panel: 30px;
+
+  /* Layout */
+  --content-max: 1340px;
+  --section-y: clamp(72px, 9vw, 120px);
+  --header-h: 80px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+  --dur-slow: 450ms;
+}
